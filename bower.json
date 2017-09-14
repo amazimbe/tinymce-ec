@@ -1,0 +1,23 @@
+{
+  "name": "ec",
+  "description": "ec TinyMCE plugin repo",
+  "main": "bower.json",
+  "authors": [
+    "Alfred Mazimbe <alfred.mazimbe@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/amazimbe/tinymce-ec",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-timepicker": "^0.5.2",
+    "jquery": "2.2.4",
+    "bootstrap": "3.3.7"
+  }
+}

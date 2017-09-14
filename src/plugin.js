@@ -1,12 +1,8 @@
-import Widget from './widget';
-
 const plugin = (editor) => {
-  const widget = new Widget({
-    editor: editor,
-    elementClass: 'ec',
-    html: '<span class="widget {{elementClass}}">{{selection}}</span>',
-
-    default: (html) => {
+  editor.addButton('ec', {
+    tooltip: 'Experimental condition',
+    icon: 'ec',
+    onclick() {
       let window = editor.windowManager.open({
         height: 112,
         width: 460,
@@ -15,12 +11,12 @@ const plugin = (editor) => {
         buttons: [{
           text: 'Ok',
           classes: 'widget btn primary',
-          onclick: () => {
+          onclick() {
             window.submit();
           }
         }, {
           text: 'Cancel',
-          onclick: () => {
+          onclick() {
             window.close();
           }
         }],
@@ -31,16 +27,14 @@ const plugin = (editor) => {
           label: 'Select duration'
         }],
 
-        onsubmit: function(e) {
-          let value = e.data.time;
-          html = "<span class='widget ec' data-timer='{{selection}}'>{{selection}}</span>";
-          html = html.replace(new RegExp('{{selection}}', 'g'), value) + '&nbsp;';
+        onsubmit(e) {
+          let html = `<span class="widget ec" data-timer="${e.data.time}">${e.data.time}</span>&nbsp;`;
           editor.insertContent(html);
         }
       });
 
-      let modal = $('#' + window._id);
-      let input = $(modal.find('input.mce-textbox').get(0));
+      let modal = $('#' + window._id),
+        input = $(modal.find('input.mce-textbox').get(0));
 
       input.timepicker({
         showSeconds: true,
@@ -51,19 +45,10 @@ const plugin = (editor) => {
       });
 
       input.focus(e => {
-        return $(e.target).timepicker('showWidget');
+        $(e.target).timepicker('showWidget');
       });
 
       input.timepicker('showWidget');
-    }
-  });
-
-  editor.addButton('ec', {
-    tooltip: 'Experimental condition',
-    icon: 'ec',
-    text: 'ec',
-    onclick: () => {
-      widget.insertContent();
     }
   });
 };
